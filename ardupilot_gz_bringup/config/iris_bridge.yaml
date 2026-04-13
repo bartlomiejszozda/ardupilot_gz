@@ -1,5 +1,5 @@
 ---
-- ros_topic_name: "clock"
+- ros_topic_name: "/clock"
   gz_topic_name: "/clock"
   ros_type_name: "rosgraph_msgs/msg/Clock"
   gz_type_name: "gz.msgs.Clock"
@@ -35,6 +35,18 @@
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "gz.msgs.CameraInfo"
   direction: GZ_TO_ROS
+- ros_topic_name: "static_camera_sensor/image"
+  gz_topic_name: "/world/{{ world_name }}/model/{{ robot_name }}/link/static_camera_link/sensor/static_camera_sensor/image"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "gz.msgs.Image"
+  direction: GZ_TO_ROS
+- ros_topic_name: "static_camera_sensor/camera_info"
+  gz_topic_name: "/world/{{ world_name }}/model/{{ robot_name }}/link/static_camera_link/sensor/static_camera_sensor/camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "gz.msgs.CameraInfo"
+  direction: GZ_TO_ROS
+
+
 
 - ros_topic_name: "air_pressure"
   gz_topic_name: "/world/{{ world_name }}/model/{{ robot_name }}/link/base_link/sensor/air_pressure_sensor/air_pressure"

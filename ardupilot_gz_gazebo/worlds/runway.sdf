@@ -38,6 +38,9 @@
     <plugin filename="gz-sim-navsat-system"
       name="gz::sim::systems::NavSat">
     </plugin>
+    <plugin filename="gz-sim-clock-system"
+        name="gz::sim::systems::Clock">
+    </plugin>
 
     <scene>
       <ambient>1.0 1.0 1.0</ambient>
@@ -71,6 +74,62 @@
       <uri>model://runway</uri>
         <pose degrees="true">-29 545 0 0 0 363</pose>
     </include>
+        <model name='sphere'>
+      <pose>167 411 50 0 0 0</pose>
+      <link name='sphere_link'>
+        <inertial>
+          <inertia>
+            <ixx>0.10000000000000001</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.10000000000000001</iyy>
+            <iyz>0</iyz>
+            <izz>0.10000000000000001</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name='sphere_collision'>
+          <geometry>
+            <sphere>
+              <radius>3</radius>
+            </sphere>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='sphere_visual'>
+          <geometry>
+            <sphere>
+              <radius>5</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0 0 0 1</diffuse>
+            <specular>0 0 0 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <plugin filename="gz-sim-apply-link-wrench-system"
+      name="gz::sim::systems::ApplyLinkWrench">
+      <persistent>
+       <entity_name>sphere</entity_name>
+       <entity_type>model</entity_type>
+       <force>0 0 0</force>
+       <torque>0 0 0.1</torque>
+      </persistent>
+    </plugin>
 
   </world>
 </sdf>
