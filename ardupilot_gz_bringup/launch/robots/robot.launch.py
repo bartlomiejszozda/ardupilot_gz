@@ -128,6 +128,7 @@ def launch_state_pub_with_bridge(
         output="both",
         parameters=[
             {"robot_description": robot_desc},
+            {"use_sim_time": LaunchConfiguration("use_sim_time")},
             {"frame_prefix": ""},
         ],
         remappings=[
@@ -145,6 +146,8 @@ def launch_state_pub_with_bridge(
         parameters=[
             {
                 "config_file": tmp_bridge_file,
+                "use_sim_time": LaunchConfiguration("use_sim_time"),
+                "override_timestamps_with_wall_time": False,
                 "qos_overrides./tf_static.publisher.durability": "transient_local",
             }
         ],
@@ -204,6 +207,7 @@ def launch_sitl_dds(context: LaunchContext) -> List[LaunchDescriptionEntity]:
       "model": LaunchConfiguration("model"),
       "defaults": LaunchConfiguration("defaults"),
       "synthetic_clock": LaunchConfiguration("synthetic_clock"),
+            "use_sim_time": LaunchConfiguration("use_sim_time"),
       "sim_address": sim_address,
       "master": f"tcp:{sim_address}:{master_port}",
       "sitl": f"{sim_address}:{sitl_port}",
@@ -292,6 +296,11 @@ def generate_launch_arguments() -> List[LaunchDescriptionEntity]:
                 ),
             ),
             description="Set path to default params for the iris with DDS.",
+        ),
+        DeclareLaunchArgument(
+            "use_sim_time",
+            default_value="True",
+            description="Use Gazebo simulation time for ROS nodes and SITL DDS stamps.",
         ),
         DeclareLaunchArgument(
             "synthetic_clock",

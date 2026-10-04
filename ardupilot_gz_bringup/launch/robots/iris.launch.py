@@ -111,6 +111,7 @@ def generate_robot_launch_actions(context: LaunchContext, *args, **kwargs):
             "model": LaunchConfiguration("model"),
             "defaults": LaunchConfiguration("defaults"),
             "synthetic_clock": LaunchConfiguration("synthetic_clock"),
+            "use_sim_time": LaunchConfiguration("use_sim_time"),
             "sim_address": LaunchConfiguration("sim_address"),
             "x": LaunchConfiguration("x"),
             "y": LaunchConfiguration("y"),
@@ -171,6 +172,11 @@ def generate_launch_arguments() -> List[DeclareLaunchArgument]:
                 )
             ),
             description="Set path to default params for the iris with DDS.",
+        ),
+        DeclareLaunchArgument(
+            "use_sim_time",
+            default_value="True",
+            description="Use Gazebo simulation time for ROS nodes and SITL DDS stamps.",
         ),
         DeclareLaunchArgument(
             "synthetic_clock",

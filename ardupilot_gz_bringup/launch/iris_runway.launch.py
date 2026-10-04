@@ -65,6 +65,7 @@ def generate_launch_description():
                 ),
             ]
         ),
+        launch_arguments={"use_sim_time": LaunchConfiguration("use_sim_time")}.items(),
         condition=IfCondition(LaunchConfiguration("spawn_robot")),
     )
 
@@ -93,6 +94,7 @@ def generate_launch_description():
         package="rviz2",
         executable="rviz2",
         namespace="iris",
+        parameters=[{"use_sim_time": LaunchConfiguration("use_sim_time")}],
         arguments=["-d", f'{Path(pkg_project_bringup) / "rviz" / "iris.rviz"}'],
         condition=IfCondition(LaunchConfiguration("rviz")),
         remappings=[
@@ -103,6 +105,11 @@ def generate_launch_description():
 
     return LaunchDescription(
         [
+            DeclareLaunchArgument(
+                "use_sim_time",
+                default_value="True",
+                description="Use Gazebo simulation time for ROS nodes and SITL DDS stamps.",
+            ),
             DeclareLaunchArgument(
                 "use_gz_sim_server",
                 default_value="true",
